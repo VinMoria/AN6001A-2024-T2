@@ -45,15 +45,14 @@ def genAI_result():
 
 
 def ask_gemini(q):
-	global model
+	api = os.getenv("maskersuite")
+	print(api)
+	genai.configure(api_key=api)
+	model = genai.GenerativeModel("gemini-1.5-flash")
 	r = model.generate_content(q)
 	text = r.candidates[0].content.parts[0].text
 	return text
 
 
 if __name__ == "__main__":
-	api = os.getenv("maskersuite")
-	print(api)
-	genai.configure(api_key=api)
-	model = genai.GenerativeModel("gemini-1.5-flash")
 	app.run(port=1111)
