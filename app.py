@@ -4,6 +4,7 @@ from flask import Flask
 from flask import render_template, request
 import textblob
 import google.generativeai as genai
+import os
 
 app = Flask(__name__)
 
@@ -51,6 +52,8 @@ def ask_gemini(q):
 
 
 if __name__ == "__main__":
-	genai.configure(api_key="AIzaSyArko3Tohgwb8plR3FLFvos9RHxFS0cGv0")
+	api = os.getenv("maskersuite")
+	print(api)
+	genai.configure(api_key=api)
 	model = genai.GenerativeModel("gemini-1.5-flash")
 	app.run(port=1111)
